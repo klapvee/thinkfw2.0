@@ -17,7 +17,7 @@
 
     require BASE_PATH . '/library/Thinkfw/Autoloader.php';
 
-    spl_autoload_register('\Thinkfw\Application\Autoloader::autoload');
+    spl_autoload_register('\Thinkfw\Autoloader::autoload');
 
     $application = new \Thinkfw\Application();
 
