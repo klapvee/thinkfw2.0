@@ -12,12 +12,11 @@ class AutoLoader
      */
     public static function autoload($name)
     {
+        $nsName = $name;
         $className = ltrim($name, '\\');
 
         $fileName  = '';
         $namespace = '';
-
-
 
         if ($lastNsPos = strripos($className, '\\')) {
             $namespace = substr($className, 0, $lastNsPos);
@@ -28,6 +27,20 @@ class AutoLoader
 
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-        require $fileName;
+
+        @include $fileName;
+
+
+        // look in front directory
+        if (!class_exists($name, false)) {
+
+            // look in front app controller dir
+            if (stripos($name, 'Controller') !== false) {
+               $frontName = str_replace('Front', 'application', $name);
+               $frontName = str_replace('\\', '/', $frontName);
+               include BASE_PATH . '/'.$frontName . '.php';
+
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Thinkfw\Db\Adapters;
 
-class Mysql implements \Thinkfw\Db\Adapters\IAdapter
+class Mysql implements IAdapter
 {
     public function __construct()
     {

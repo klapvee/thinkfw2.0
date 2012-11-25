@@ -13,6 +13,8 @@
 
 namespace Thinkfw\Application;
 
+use \Front\Controllers as Controllers;
+
 class Bootstrap
 {
 
@@ -29,19 +31,41 @@ class Bootstrap
      *
      * @var \Thinkfw\Application
      */
-    private $application;
+    public static $application;
 
     /**
-     * Constructor
+     *
+     * @var \Thinkfw\AbstractController
+     */
+    public static $controller;
+
+    /**
+     * Run
      *
      * Accepts __NAMESPACE__ Application objects
      * @param \Thinkfw\Application $application
      * @return void
      */
-
-    public function __construct(\Thinkfw\Application $application)
+    public static function run(\Thinkfw\Application $application)
     {
-        $this->application = $application;
+
+
+        self::$application = $application;
+
+        self::$config = new \Thinkfw\Config('/application/Config/site.ini');
+        self::$application->run();
+        self::$controller = new Controllers\Index;
+
+        ob_start();
+
+
+        self::$controller->Action();
+
+        $content = ob_get_contents();
+
+        ob_end_clean();
+
+        echo $content;
     }
 
     /**
@@ -56,10 +80,13 @@ class Bootstrap
         // start session
         @session_start();
 
-        self::$config = new \Thinkfw\Config('/application/Config/site.ini');
-        $this->application->run();
+
     }
 
+    public function getDatabase() {
+
+    }
+    
     public static function getConfig()
     {
         return self::$config;

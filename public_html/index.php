@@ -21,6 +21,13 @@
 
     $application = new \Thinkfw\Application();
 
-    $boot = new \Thinkfw\Application\Bootstrap($application);
-    $boot->boot();
-    
+    // library sections
+    use \Thinkfw\Application\Bootstrap as Bootstrap;
+    use \Thinkfw\Db as Db;
+
+    // front section
+    use \Front\Controllers as Controllers;
+
+
+    Bootstrap::run($application);
+
