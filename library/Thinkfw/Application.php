@@ -28,17 +28,14 @@ class Application
      */
     public function run()
     {
-        echo $this->getDatabase();
+        $this->getDatabase();
     }
 
     public function getDatabase()
     {
-        echo "<pre>";
         $config = \Thinkfw\Application\Bootstrap::getConfig();
 
         if ($this->db === null) {
-
-
             $this->db = new \Thinkfw\Db(
                 $config->get('database', 'driver'),
                 $config->get('database', 'host'),
