@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkfw\Application;
+namespace Thinkfw;
 
 class AutoLoader
 {
