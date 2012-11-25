@@ -6,5 +6,20 @@ use Thinkfw\View\AbstractView as AbstractView;
 
 class View extends AbstractView
 {
+    public $viewLocation;
 
+    public function setViewLocation($location)
+    {
+        $this->viewLocation = $location;
+    }
+
+    public function render()
+    {
+        ob_start();
+        require $this->viewLocation;
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        return $content;
+    }
 }
