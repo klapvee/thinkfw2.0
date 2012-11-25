@@ -14,8 +14,17 @@ class Mysql implements IAdapter
 
     }
 
-    public function escape() {
-
+    /**
+     * escape
+     *
+     * Escaping function for variables
+     *
+     * @param string $var
+     * @return string
+     */
+    public function escape($var) {
+        $var = mysql_real_escape_string($var);
+        return $var;
     }
 
     public function fetchAll() {
