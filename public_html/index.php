@@ -11,8 +11,8 @@
     define('BASE_PATH', realpath($_SERVER['DOCUMENT_ROOT'] . '/../' ));
 
     set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH);
-    set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/Controllers');
-    set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/Models');
+    set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/Cms/Controllers');
+    set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/Cms/Models');
     set_include_path(get_include_path() . PATH_SEPARATOR . BASE_PATH . '/library');
 
     require BASE_PATH . '/library/Thinkfw/Autoloader.php';
@@ -26,7 +26,7 @@
     use \Thinkfw\Db as Db;
 
     // front section
-    use \Front\Controllers as Controllers;
+    use \Front\Cms\Controllers as Controllers;
 
 
     Bootstrap::run($application);
