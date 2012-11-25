@@ -15,7 +15,7 @@
 
 namespace Thinkfw\Application;
 
-use \Front\Cms\Controllers as Controllers;
+//use \Front\Cms\Controllers as Controllers;
 
 class Bootstrap
 {
@@ -42,6 +42,13 @@ class Bootstrap
     public static $controller;
 
     /**
+     *
+     * @var type
+     */
+    public static $router;
+
+
+    /**
      * Run
      *
      * Accepts __NAMESPACE__ Application objects
@@ -50,6 +57,9 @@ class Bootstrap
      */
     public static function run(\Thinkfw\Application $application)
     {
+        // new router object
+        self::$router = new \Thinkfw\Router();
+
         // set a new application
         self::$application = $application;
 
@@ -59,8 +69,11 @@ class Bootstrap
         // tell the application to start
         self::$application->run();
 
+        // get controller and action
+        $controllerName = self::getFrontControllerName();
+
         // init a new controller corresponding to request
-        self::$controller = new Controllers\Index;
+        self::$controller = new $controllerName;
 
         // start object output caching
         ob_start();
@@ -68,11 +81,18 @@ class Bootstrap
         // perform the action corresponding to request
         self::$controller->Action();
 
+        $ViewDir = strtolower(self::$router->getFrontBase());
+
+        $ViewFile = strtolower(self::$router->getFrontAction());
+
         // set view location from which the view will be loaded from
-        self::$controller->view->setViewLocation('Cms/Views/html/index/index.phtml');
+        self::$controller->view->setViewLocation('Cms/Views/html/'.$ViewDir.'/'.$ViewFile.'.phtml');
 
         // render and return the html output from the view
-        $view = self::$controller->view->render();
+        $content = self::$controller->view->render();
+
+        require 'layouts/'.self::$controller->getLayout();
+        //require 'layouts/default.phtml';
 
         // parse the layout html
         $content = ob_get_contents();
@@ -100,6 +120,13 @@ class Bootstrap
 
 
     }
+
+    public function getFrontControllerName()
+    {
+        return '\Front\Cms\Controllers\\' . self::$router->getFrontBase();
+    }
+
+
 
     public function getDatabase() {
 
