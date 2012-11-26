@@ -1,7 +1,7 @@
 <?php
 
 namespace Thinkfw\Controller;
-use \Thinkfw\View as View;
+use Thinkfw\View as View;
 
 abstract class Front
 {

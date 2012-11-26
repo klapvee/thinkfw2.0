@@ -81,8 +81,10 @@ class Bootstrap
         // perform the action corresponding to request
         self::$controller->Action();
 
+        // get the base for default view base dir
         $ViewDir = strtolower(self::$router->getFrontBase());
 
+        // get the default view file to display
         $ViewFile = strtolower(self::$router->getFrontAction());
 
         // set view location from which the view will be loaded from
@@ -91,8 +93,8 @@ class Bootstrap
         // render and return the html output from the view
         $content = self::$controller->view->render();
 
+        // require the targeted layout
         require 'layouts/'.self::$controller->getLayout();
-        //require 'layouts/default.phtml';
 
         // parse the layout html
         $content = ob_get_contents();
@@ -121,11 +123,16 @@ class Bootstrap
 
     }
 
+    /**
+     * getFrontControllerName
+     *
+     * @return string
+     */
     public function getFrontControllerName()
     {
-        return '\Front\Cms\Controllers\\' . self::$router->getFrontBase();
+        // APP namespace
+        return '\APP\Cms\Controllers\\' . self::$router->getFrontBase();
     }
-
 
 
     public function getDatabase() {
