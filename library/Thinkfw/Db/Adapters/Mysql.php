@@ -8,14 +8,34 @@ class Mysql extends Database
 {
     private $connection;
 
-    public function __construct()
-    {
+    private $username;
 
+    private $password;
+
+    private $database;
+
+    public function __construct($host, $username, $password, $database)
+    {
+        $this->username = $username;
+        $this->host = $host;
+        $this->password = $password;
+        $this->database = $database;
+
+        $this->connect();
     }
 
     public function connect()
     {
-        mysql_connect($this->host, $this->username, $this->password);
+        $this->connection = mysql_connect($this->host, $this->username, $this->password);
+
+        if (!$this->connection) {
+            echo "connection failed";
+        }
+
+        if (!mysql_select_db($this->database, $this->connection) ) {
+            echo mysql_error();
+            exit;
+        }
     }
 
     /**
@@ -31,12 +51,13 @@ class Mysql extends Database
         return $var;
     }
 
-    public function fetchAll() {
+    public function fetchAll($select) {
 
     }
 
-    public function fetchRow() {
-
+    public function fetchRow($select)
+    {
+        return mysql_fetch_assoc($select);
     }
 
     public function query($string) {

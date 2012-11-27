@@ -43,7 +43,7 @@ class AutoLoader
         // replace the directory separators
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-        include $fileName;
+        require_once $fileName;
 
     }
 }

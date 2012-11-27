@@ -7,7 +7,7 @@ class Db
 {
     private $adapter;
 
-    public function __construct($adapter, $host, $username, $password)
+    public function __construct($adapter, $host, $username, $password, $databaseName)
     {
         try {
             $adapterName = '\Thinkfw\Db\Adapters\\'.ucfirst($adapter);
@@ -15,7 +15,8 @@ class Db
             $this->adapter = new $adapterName(
                     $host,
                     $username,
-                    $password
+                    $password,
+                    $databaseName
                 );
         } catch (Exception $e) {
             echo "Database instantiation failed: " . $e->getMessage();
