@@ -10,6 +10,7 @@
  * @author WillemDaems
  *
  * @todo put contents of view directly in layout
+ * @todo session management
  *
  */
 
@@ -17,6 +18,8 @@ namespace Thinkfw\Application;
 
 use Thinkfw\Config;
 use Thinkfw\Router;
+
+session_start();
 
 //use \Front\Cms\Controllers as Controllers;
 
