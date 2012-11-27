@@ -2,8 +2,8 @@
 
 namespace APP\Cms\Controllers;
 
-use Thinkfw\Controller\Front as Front;
-use Thinkfw\Application\Bootstrap as Bootstrap;
+use Thinkfw\Controller\Front;
+use Thinkfw\Application\Bootstrap;
 
 class Index extends Front
 {
