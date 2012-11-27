@@ -43,12 +43,13 @@ class Mysql extends Database
         return $var;
     }
 
-    public function fetchAll() {
+    public function fetchAll($select) {
 
     }
 
-    public function fetchRow() {
-
+    public function fetchRow($select)
+    {
+        return mysql_fetch_assoc($select);
     }
 
     public function query($string) {

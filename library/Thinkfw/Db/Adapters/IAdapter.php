@@ -7,6 +7,6 @@ interface IAdapter
     public function connect();
     public function query($string);
     public function escape($string);
-    public function fetchRow();
-    public function fetchAll();
+    public function fetchRow($select);
+    public function fetchAll($select);
 }
