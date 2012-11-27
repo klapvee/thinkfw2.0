@@ -44,7 +44,7 @@ class Application
                 $config->get('database', 'host'),
                 $config->get('database', 'username'),
                 $config->get('database', 'password'),
-                $config->get('database', 'db')
+                $config->get('database', 'dbname')
             );
         }
 
