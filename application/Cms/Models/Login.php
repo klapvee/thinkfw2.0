@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *
+ * @todo session management
+ */
 namespace APP\Cms\Models;
 
 class Login
@@ -13,6 +17,18 @@ class Login
 
     public function login($username, $password)
     {
-        $this->database->query("test");
+        $result = $this->database->query("
+            SELECT * FROM users WHERE username = '".$this->database->escape($username)."'
+                AND `password` = MD5(CONCAT('".$this->database->escape($password) ."', salt))
+        ");
+
+        $row = $this->database->fetchRow($result);
+        $_SESSION['user'] = $row;
+
+        if (!empty($row['username'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
