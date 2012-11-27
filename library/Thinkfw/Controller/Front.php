@@ -15,6 +15,11 @@ abstract class Front
         $this->layout = 'default.phtml';
     }
 
+    public function getView()
+    {
+        return $this->view;
+    }
+
     public function setLayout($layout)
     {
         $this->layout = $layout;

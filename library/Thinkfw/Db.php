@@ -21,6 +21,11 @@ class Db
             echo "Database instantiation failed: " . $e->getMessage();
         }
 
+        //return $this->adapter;
+    }
+
+    public function getAdapter()
+    {
         return $this->adapter;
     }
 }

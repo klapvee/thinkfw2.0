@@ -15,6 +15,9 @@
 
 namespace Thinkfw\Application;
 
+use Thinkfw\Config;
+use Thinkfw\Router;
+
 //use \Front\Cms\Controllers as Controllers;
 
 class Bootstrap
@@ -58,13 +61,13 @@ class Bootstrap
     public static function run(\Thinkfw\Application $application)
     {
         // new router object
-        self::$router = new \Thinkfw\Router();
+        self::$router = new Router();
 
         // set a new application
         self::$application = $application;
 
         // get parsed config object
-        self::$config = new \Thinkfw\Config('/application/Config/site.ini');
+        self::$config = new Config('/application/Config/site.ini');
 
         // tell the application to start
         self::$application->run();
@@ -79,6 +82,11 @@ class Bootstrap
         ob_start();
 
         // perform the action corresponding to request
+        if (method_exists(self::$controller, 'init')) {
+            self::$controller->init();
+        }
+
+        // perform the action corresponding to request
         self::$controller->Action();
 
         // get the base for default view base dir
@@ -88,7 +96,7 @@ class Bootstrap
         $ViewFile = strtolower(self::$router->getFrontAction());
 
         // set view location from which the view will be loaded from
-        self::$controller->view->setViewLocation('Cms/Views/html/'.$ViewDir.'/'.$ViewFile.'.phtml');
+        self::$controller->getView()->setViewLocation('Cms/Views/html/'.$ViewDir.'/'.$ViewFile.'.phtml');
 
         // render and return the html output from the view
         $content = self::$controller->view->render();
@@ -134,10 +142,6 @@ class Bootstrap
         return '\APP\Cms\Controllers\\' . self::$router->getFrontBase();
     }
 
-
-    public function getDatabase() {
-
-    }
 
     public static function getConfig()
     {
