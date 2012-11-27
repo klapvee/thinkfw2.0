@@ -27,7 +27,15 @@ class Mysql extends Database
     public function connect()
     {
         $this->connection = mysql_connect($this->host, $this->username, $this->password);
-        mysql_select_db($this->database, $this->connection);
+
+        if (!$this->connection) {
+            echo "connection failed";
+        }
+
+        if (!mysql_select_db($this->database, $this->connection) ) {
+            echo mysql_error();
+            exit;
+        }
     }
 
     /**
