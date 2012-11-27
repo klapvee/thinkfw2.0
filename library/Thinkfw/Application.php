@@ -11,13 +11,16 @@
  */
 namespace Thinkfw;
 
+use Thinkfw\Db;
+use Thinkfw\Application\Bootstrap;
+
 class Application
 {
     /**
      *
      * @var \Thinkfw\Db
      */
-    private $db;
+    public static $db;
 
     /**
      * run
@@ -31,12 +34,12 @@ class Application
         $this->getDatabase();
     }
 
-    public function getDatabase()
+    public static function getDatabase()
     {
-        $config = \Thinkfw\Application\Bootstrap::getConfig();
+        $config = Bootstrap::getConfig();
 
-        if ($this->db === null) {
-            $this->db = new \Thinkfw\Db(
+        if (self::$db === null) {
+            self::$db = new Db (
                 $config->get('database', 'driver'),
                 $config->get('database', 'host'),
                 $config->get('database', 'username'),
@@ -44,6 +47,8 @@ class Application
                 $config->get('database', 'db')
             );
         }
+
+        return self::$db->getAdapter();
     }
 
     public function redirect($url)

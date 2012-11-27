@@ -1,7 +1,7 @@
 <?php
 
 namespace Thinkfw\Controller;
-use \Thinkfw\View as View;
+use Thinkfw\View as View;
 
 abstract class Front
 {
@@ -13,6 +13,11 @@ abstract class Front
     {
         $this->view = new View;
         $this->layout = 'default.phtml';
+    }
+
+    public function getView()
+    {
+        return $this->view;
     }
 
     public function setLayout($layout)

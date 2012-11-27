@@ -2,8 +2,9 @@
 
 namespace Thinkfw\Db\Adapters;
 
+use Thinkfw\Db\Adapters\Database;
 
-class Mysql implements IAdapter
+class Mysql extends Database
 {
     private $connection;
 
@@ -38,8 +39,8 @@ class Mysql implements IAdapter
 
     }
 
-    public function query() {
-
+    public function query($string) {
+       return mysql_query($string);
     }
 
     public function identify()
