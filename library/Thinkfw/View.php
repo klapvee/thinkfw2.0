@@ -16,7 +16,10 @@ class View extends AbstractView
     public function render()
     {
         ob_start();
-        require $this->viewLocation;
+
+        if (file_exists(APPLICATION_PATH.'/'.$this->viewLocation)) {
+            require $this->viewLocation;
+        }
         $content = ob_get_contents();
         ob_end_clean();
 

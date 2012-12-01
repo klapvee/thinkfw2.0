@@ -1,0 +1,42 @@
+
+
+<form class="form-horizontal" method="post" id="form" onsubmit="return checkForm(this);">
+    <div class="control-group">
+        <label class="control-label" for="inputName">Naam</label>
+        <div class="controls">
+            <input type="text" data-required="true" id="inputName" placeholder="Naam" name="name">
+
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputTable">Tabel</label>
+        <div class="controls">
+            <input type="text"  data-required="true" id="inputTable" placeholder="Tabelnaam" name="table">
+
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">Definitie</label>
+        <div class="controls">
+            <textarea rows="20" name="definition" data-required="true" class="input-xxlarge" style="width:600px">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="default">
+    <hooks>
+            <hook>Rtvnh_Hook_Multipage_Audio</hook>
+    </hooks>
+    <fields>
+        <field name="title" type="text">
+            <label lang="nl">Titel</label>
+        </field>
+    </fields>
+</definition>
+            </textarea>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+
+            <button type="submit" class="btn">Opslaan</button>
+        </div>
+    </div>
+</form>

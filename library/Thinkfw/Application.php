@@ -51,7 +51,7 @@ class Application
         return self::$db->getAdapter();
     }
 
-    public function redirect($url)
+    public static function redirect($url)
     {
         header("Location: " . $url);
         exit;
