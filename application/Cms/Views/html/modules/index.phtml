@@ -1,0 +1,21 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+
+<a href="/modules/add" class="btn">Module toevoegen</a>
+<br />
+<table class="table table-hover table-bordered table-striped">
+<?php
+    foreach ($this->modules as $module) {
+            ?>
+    <tr>
+        <td><a href="/modules/edit/<?php echo $module['id'];?>"><?php echo $module['name']; ?></a></td>
+    </tr>
+    <?
+    }
+?>
+</table>

@@ -1,9 +1,5 @@
 <?php
 
-/**
- *
- * @todo header function
- */
 
 namespace APP\Cms\Controllers;
 
@@ -29,8 +25,7 @@ class Login extends Front
         if (!empty($_POST['username'])) {
             $success = $this->model->login($_POST['username'], $_POST['password']);
             if ($success) {
-                header('Location: /');
-                exit;
+                Application::redirect('/');
             }
         }
 

@@ -18,7 +18,7 @@ class Login
     public function login($username, $password)
     {
         $result = $this->database->query("
-            SELECT * FROM users WHERE username = '".$this->database->escape($username)."'
+            SELECT * FROM thinkfw_users WHERE username = '".$this->database->escape($username)."'
                 AND `password` = MD5(CONCAT('".$this->database->escape($password) ."', salt))
         ");
 
