@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background:#e7e7e7;
+}
+
+.black {
+    background: #252525;
+}
+
+.header {
+    background:#9098a4;
+}
+
+.menu {
+    margin-left: 20px;
+}
+.sub {background: #fff;}
