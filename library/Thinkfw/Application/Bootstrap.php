@@ -89,8 +89,17 @@ class Bootstrap
             self::$controller->init();
         }
 
-        // perform the action corresponding to request
-        self::$controller->Action();
+        // gets the action from the routing object
+        $action = self::$router->getFrontAction();
+
+        // if method exists execute it
+        if (!empty($action) && method_exists(self::$controller, $action)) {
+            self::$controller->$action();
+        } else {
+
+            // switch back to default and perform the action corresponding to request
+            self::$controller->Action();
+        }
 
         // get the base for default view base dir
         $ViewDir = strtolower(self::$router->getFrontBase());
