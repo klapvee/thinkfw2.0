@@ -51,8 +51,20 @@ class Mysql extends Database
         return $var;
     }
 
-    public function fetchAll($select) {
+    /**
+     * fetches from given result set
+     *
+     * @param resource $resource
+     * @return array
+     */
+    public function fetchAll($resource)
+    {
+        $resultSet = array();
+        while ($row = mysql_fetch_assoc($resource)) {
+            array_push($resultSet, $row);
+        }
 
+        return $resultSet;
     }
 
     public function fetchRow($select)
