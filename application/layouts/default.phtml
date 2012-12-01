@@ -16,7 +16,7 @@
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="/css/style.css">
-        
+
         <!-- thinkfw -->
 
         <script src="/js/thinkfw.js"></script>
@@ -43,6 +43,7 @@
                     </a>
 
                     <div class="nav-collapse collapse navbar-responsive-collapse">
+                        <!--
                         <ul class="nav">
                             <li class="active"><a href="#">Home</a></li>
                         </ul>
@@ -64,6 +65,15 @@
                         <ul class="nav pull-right">
                             <li class="active"><a href="/modules">Modules</a></li>
                         </ul>
+                        -->
+                        <?php
+
+                            if ($_SESSION['user']['admin'] === true) :
+                            ?>
+                        <ul class="nav pull-right">
+                            <li class="active"><a href="/modules">Modules</a></li>
+                        </ul>
+                            <?php endif; ?>
                     </div>
                 </div>
             </div>
