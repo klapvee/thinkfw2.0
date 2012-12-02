@@ -54,6 +54,32 @@ class Module
     }
 
     /**
+     * Fetch table data
+     *
+     * @param array $module
+     * @return array
+     */
+    public function getData(array $module)
+    {
+        if (!preg_match("/[A-Za-z\_]/", $module['table'])) {
+            echo "table name did not meet specifications!";
+            exit;
+        }
+
+        $result = $this->database->query("
+            SELECT * FROM `" . $module['table'] . "`
+        ");
+
+        $resultSet = array();
+
+        if ($result !== false) {
+            $resultSet = $this->database->fetchAll($result);
+        }
+
+        return $resultSet;
+    }
+
+    /**
      *
      * insert new module definition with xml schema into db
      *
@@ -79,7 +105,7 @@ class Module
 
     /**
      * Updates module definition
-     * 
+     *
      * @param int $id
      * @param string $name
      * @param string $table
@@ -99,5 +125,35 @@ class Module
         ");
 
         return $success;
+    }
+
+    /**
+     * Insert new record based on (post) data and xml definition
+     *
+     * @param \SimpleXMLElement $xml
+     * @param array $module
+     * @param array $values
+     * @return void;
+     */
+    public function insertData(\SimpleXMLElement $xml, array $module, array $values)
+    {
+        $query = 'INSERT INTO `' . $this->database->escape($module['table']) . '` SET ';
+        $count = count($xml->fields->field);
+
+        $i = 0;
+        foreach ($xml->fields->field as $field) {
+            $i++;
+
+            $arr = $field->attributes();
+            $name = (string) $arr['name'];
+
+            $query .= '`' . $name . '` = \'' . $this->database->escape($values[$name]) . "'";
+            if ($i < $count) {
+                $query .= ', ';
+            }
+        }
+
+        return mysql_query($query);
+
     }
 }

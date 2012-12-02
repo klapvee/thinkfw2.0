@@ -1,0 +1,43 @@
+<form class="form-horizontal" method="post" id="form" onsubmit="return checkForm(this);">
+
+    <?php
+
+
+    foreach ($this->data->fields->field as $field) {
+
+        $arr = $field->attributes();
+        switch ($arr['type']) {
+
+            case 'text':
+                ?>
+    <div class="control-group">
+        <label class="control-label" for="inputTable"><?php echo $field->label;?></label>
+        <div class="controls">
+            <input type="text"  data-required="true" id="inputTable" placeholder="<?php echo $field->label;?>" name="<?php echo $arr['name'];?>">
+
+        </div>
+    </div>
+        <?
+                break;
+            case 'textarea':
+                ?>
+    <div class="control-group">
+        <label class="control-label" for="inputTable"><?php echo $field->label;?></label>
+        <div class="controls">
+            <textarea rows="20" name="<?php echo $arr['name'];?>" data-required="true" class="input-xxlarge"></textarea>
+        </div>
+    </div>
+        <?
+                break;
+        }
+
+    }
+
+    ?>
+    <div class="control-group">
+        <div class="controls">
+
+            <button type="submit" class="btn">Opslaan</button>
+        </div>
+    </div>
+</form>
