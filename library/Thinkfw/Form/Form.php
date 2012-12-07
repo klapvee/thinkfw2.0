@@ -87,9 +87,19 @@ class Form
      * @param array $params
      * @return false
      */
-    public function setParameters(array $params)
+    public function setParameters(array $params, $link = true)
     {
         $this->parameters = $params;
+        foreach ($this->elements as $element) {
+            foreach ($params as $key => $value) {
+                $name = $element->getName();
+
+                if ($name === $key) {
+                    $element->setValue($value);
+                    break;
+                }
+            }
+        }
     }
 
     /**
