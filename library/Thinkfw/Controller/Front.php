@@ -71,4 +71,14 @@ abstract class Front
 
         return $value;
     }
+
+    /**
+     * Return all GP params
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
 }
