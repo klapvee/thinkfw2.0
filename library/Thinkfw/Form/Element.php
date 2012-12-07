@@ -92,7 +92,8 @@ class Element
     }
 
     /**
-     * returns value
+     * returns default value. Do not confuse with request parameter value
+     * 
      * @return string
      */
     public function getValue()
