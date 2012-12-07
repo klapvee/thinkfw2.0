@@ -32,17 +32,27 @@ class Element
     private $value;
 
     /**
+     * Label for the input element
+     * @var string
+     */
+    private $label;
+
+    /**
      * Creates a new element
      *
      * @param string $type
      * @param string $name
      * @param string $value
+     * @param bool $required
+     * @param bool $inOverview
      */
-    public function __construct($type, $name, $value = '')
+    public function __construct($type, $name, $label = '', $value = '', $required = false, $inOverview = true)
     {
         $this->type = $type;
         $this->name = $name;
         $this->value = $value;
+        $this->required = $required;
+        $this->inOverview = $inOverview;
     }
 
     /**
@@ -70,5 +80,14 @@ class Element
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * returns label
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 }
