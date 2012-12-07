@@ -14,21 +14,26 @@ class Module extends Form
 
         foreach ($data->fields->field as $field) {
 
+            // get the attributes (simplexml)
             $arr = $field->attributes();
 
+            // cast to bool, value from string
+            $arr['required'] = (bool) $arr['required'];
+
+            // cast to bool, value from string
+            $arr['inOverview'] = (bool) $arr['inOverview'];
+
             // create a simple text element without value
-            $element = new Element($arr['type'], $arr['name'], $field->label, '');
+            $element = new Element(
+                    $arr['type'],
+                    $arr['name'],
+                    $field->label, '',
+                    $arr['required'],
+                    $arr['inOverview']
+                );
 
             // add it to the form
             $this->addElement($element);
-        }
-    }
-
-    public function validate()
-    {
-        foreach ($this->elements as $element)
-        {
-            echo $element['name'];
         }
     }
 }

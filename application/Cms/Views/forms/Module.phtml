@@ -1,12 +1,20 @@
 <?php
 
-
+    // loop through the form elements
     foreach ($this->elements as $element)
     {
-        $label = $element->getName();
+        $label = $element->getLabel();
         $type = $element->getType();
         $name = $element->getName();
         $value = $element->getValue();
+        $required = (int) $element->getRequired();
+
+        if ($required === 1) {
+            $required = 'true';
+        } else {
+            $required = 'false';
+        }
+
 
         switch($type) {
             case 'text':
@@ -14,7 +22,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputTable"><?php echo $label;?></label>
                     <div class="controls">
-                        <input type="text"  data-required="true" id="inputTable" placeholder="<?php echo $label;?>" name="<?php echo $name;?>">
+                        <input type="text"  data-required="<?php echo $required; ?>" id="inputTable" value="<?php echo $value;?>" placeholder="<?php echo $label;?>" name="<?php echo $name;?>">
 
                     </div>
                 </div>
@@ -25,7 +33,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputTable"><?php echo $label;?></label>
                     <div class="controls">
-                        <textarea rows="20" name="<?php echo $name;?>" data-required="true" class="input-xxlarge"></textarea>
+                        <textarea rows="20" name="<?php echo $name;?>" data-required="<?php echo $required; ?>" placeholder="<?php echo $label;?>" class="input-xxlarge"><?php echo $value;?></textarea>
                     </div>
                 </div>
         <?
