@@ -24,7 +24,8 @@ class Login
 
         $row = $this->database->fetchRow($result);
         $_SESSION['user'] = $row;
-
+        $_SESSION['user']['admin'] = (bool) $row['admin'];
+        
         if (!empty($row['username'])) {
             return true;
         } else {

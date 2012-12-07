@@ -1,7 +1,13 @@
-<?PHP
+<?php
+
+    use Thinkfw\Application;
+
+
     if (empty($_SESSION['user'])) {
-        \Thinkfw\Application::redirect('/login');
+        Application::redirect('/login');
     }
+
+    $db = Application::getDatabase();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +22,7 @@
         <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="/css/style.css">
-        
+
         <!-- thinkfw -->
 
         <script src="/js/thinkfw.js"></script>
@@ -43,27 +49,31 @@
                     </a>
 
                     <div class="nav-collapse collapse navbar-responsive-collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                        </ul>
 
-                        <ul class="nav pull-left">
-                            <li><a href="#">Link</a></li>
-                            <li class="divider-vertical"></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projecten <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </li>
+                        <?php
+
+                            $result = $db->query("SELECT * FROM thinkfw_modules");
+                            $resultSet = $db->fetchAll($result);
+
+                            foreach ($resultSet as $module) {
+                                ?>
+                        <ul class="nav ">
+                            <li class="active"><a href="/module/overview/<?php echo (int) $module['id']; ?>"><?php echo $module['name']; ?></a></li>
                         </ul>
+                                <?
+                            }
+
+
+                        ?>
+
+                        <?php
+
+                            if ($_SESSION['user']['admin'] === true) :
+                            ?>
                         <ul class="nav pull-right">
                             <li class="active"><a href="/modules">Modules</a></li>
                         </ul>
+                            <?php endif; ?>
                     </div>
                 </div>
             </div>
