@@ -36,6 +36,13 @@ class Form
     private $viewLocation;
 
     /**
+     * Parameters
+     *
+     * @var array
+     */
+    private $parameters;
+
+    /**
      * Creates new Form object
      * @return void
      */
@@ -72,5 +79,62 @@ class Form
         $this->form->setViewLocation($this->viewLocation);
         $this->form->elements = $this->elements;
         return $this->form->render();
+    }
+
+    /**
+     * Set parameters for validation
+     *
+     * @param array $params
+     * @return false
+     */
+    public function setParameters(array $params)
+    {
+        $this->parameters = $params;
+    }
+
+    /**
+     * Validate form fields
+     *
+     * @return boolean
+     */
+    public function validate()
+    {
+        $validated = true;
+
+        foreach ($this->elements as $element)
+        {
+            // assign required property, cast to bool
+            $required = (bool) $element->getRequired();
+
+            // assign element name
+            $name = $element->getName();
+
+            // strip tags, no cheating
+            $value = strip_tags($this->getParameterValue($name));
+
+            if ($required === true) {
+                if (empty($value)) {
+                    $validated = false;
+                }
+            }
+        }
+
+        return $validated;
+    }
+
+    /**
+     * Get parameter value
+     *
+     * @param string $key
+     */
+    public function getParameterValue($key)
+    {
+        $value = '';
+
+        if (isset($this->parameters[$key])) {
+            $value = $this->parameters[$key];
+        }
+
+        return $value;
     }
 }
