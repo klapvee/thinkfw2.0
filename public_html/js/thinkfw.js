@@ -4,7 +4,7 @@ function checkForm(form) {
     var submitForm = true;
 
     $('#' + form.id).find('[data-required]').each(function(index) {
-        if (this.value === '') {
+        if (this.value === '' && this.getAttribute('data-required') === 'true') {
             submitForm = false;
             $(this).closest('.control-group').addClass('error');
         } else {
@@ -12,7 +12,6 @@ function checkForm(form) {
             $(this).closest('.control-group').addClass('success');
 
         }
-
     });
 
     return submitForm;

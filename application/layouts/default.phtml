@@ -29,57 +29,90 @@
 
         <!-- Bootstrap -->
         <script src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/tables.js"></script>
         <script type="text/javascript">
 
             $(function() {
                 $('.dropdown-toggle').dropdown();
+
+                $('.data-table').dataTable({
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers",
+                    "sDom": '<""l>t<"F"fp>'
+                });
+
+                $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
+
+                $('select').select2();
+
+                $("span.icon input:checkbox, th input:checkbox").click(function() {
+                    var checkedStatus = this.checked;
+                    var checkbox = $(this).parents('.widget-box').find('tr td:first-child input:checkbox');
+                    checkbox.each(function() {
+                        this.checked = checkedStatus;
+                        if (checkedStatus == this.checked) {
+                            $(this).closest('.checker > span').removeClass('checked');
+                        }
+                        if (this.checked) {
+                            $(this).closest('.checker > span').addClass('checked');
+                        }
+                    });
+                });
             });
 
         </script>
 
     </head>
     <body>
-        <div class="navbar navbar-inverse">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+
+
+    <div class="navbar navbar-static navbar-inverse black">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    </a>
+                </a>
+                <a class="brand scroller" data-section="body" href="index.html">
+                    <img src="img/logo.png" alt="logo" />
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav ">
+                    <?php
 
-                    <div class="nav-collapse collapse navbar-responsive-collapse">
+                    $result = $db->query("SELECT * FROM thinkfw_modules");
+                    $resultSet = $db->fetchAll($result);
 
-                        <?php
-
-                            $result = $db->query("SELECT * FROM thinkfw_modules");
-                            $resultSet = $db->fetchAll($result);
-
-                            foreach ($resultSet as $module) {
-                                ?>
-                        <ul class="nav ">
-                            <li class="active"><a href="/module/overview/<?php echo (int) $module['id']; ?>"><?php echo $module['name']; ?></a></li>
-                        </ul>
-                                <?
-                            }
-
-
+                    foreach ($resultSet as $module) {
                         ?>
 
-                        <?php
+                        <li class="active">
+                            <a href="/module/overview/<?php echo (int) $module['id']; ?>"><?php echo $module['name']; ?></a>
+                        </li>
 
-                            if ($_SESSION['user']['admin'] === true) :
-                            ?>
-                        <ul class="nav pull-right">
-                            <li class="active"><a href="/modules">Modules</a></li>
-                        </ul>
-                            <?php endif; ?>
-                    </div>
+                        <?
+                    }
+
+
+                    ?>
+                    </ul>
+                    <?php
+
+                        if ($_SESSION['user']['admin'] === true) :
+                        ?>
+                    <ul class="nav pull-right">
+                        <li class="active"><a href="/modules">Modules</a></li>
+                    </ul>
+                    <?php endif; ?>
+
+
                 </div>
             </div>
         </div>
+    </div>
 
+    <?php echo $content; ?>
 
-        <?php echo $content; ?>
     </body>
 </html>

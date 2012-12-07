@@ -79,6 +79,16 @@ class Module
         return $resultSet;
     }
 
+    public function getRecord($module, $id)
+    {
+        $result = $this->database->query("
+            SELECT * FROM `".$this->database->escape($module['table'])."`
+            WHERE id = '".(int) $id ."'
+        ");
+
+        return $this->database->fetchRow($result);
+    }
+
     /**
      *
      * insert new module definition with xml schema into db
@@ -135,7 +145,7 @@ class Module
      * @param array $values
      * @return void;
      */
-    public function insertData(\SimpleXMLElement $xml, array $module, array $values)
+    public function insertRecord(\SimpleXMLElement $xml, array $module, array $values)
     {
         $query = 'INSERT INTO `' . $this->database->escape($module['table']) . '` SET ';
         $count = count($xml->fields->field);
@@ -152,6 +162,30 @@ class Module
                 $query .= ', ';
             }
         }
+
+        return mysql_query($query);
+
+    }
+
+    public function updateRecord(\SimpleXMLElement $xml, array $module, array $values, $id)
+    {
+        $query = 'UPDATE `' . $this->database->escape($module['table']) . '` SET ';
+        $count = count($xml->fields->field);
+
+        $i = 0;
+        foreach ($xml->fields->field as $field) {
+            $i++;
+
+            $arr = $field->attributes();
+            $name = (string) $arr['name'];
+
+            $query .= '`' . $name . '` = \'' . $this->database->escape($values[$name]) . "'";
+            if ($i < $count) {
+                $query .= ', ';
+            }
+        }
+
+        $query .= " WHERE id = '".(int) $id."'";
 
         return mysql_query($query);
 

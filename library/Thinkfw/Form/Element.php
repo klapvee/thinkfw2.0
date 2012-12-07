@@ -73,13 +73,23 @@ class Element
     }
 
     /**
+     * Sets a value for the current element
+     *
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
      * returns name
      *
      * @return string
      */
     public function getName()
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -92,12 +102,13 @@ class Element
     }
 
     /**
-     * returns value
+     * returns default value. Do not confuse with request parameter value
+     *
      * @return string
      */
     public function getValue()
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**

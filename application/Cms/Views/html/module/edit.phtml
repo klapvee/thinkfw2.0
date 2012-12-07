@@ -1,11 +1,13 @@
 <form class="form-horizontal" method="post" id="form" onsubmit="return checkForm(this);">
 
     <?php
-echo $this->form;
-/*
-    foreach ($this->data->fields->field as $field) {
+
+    foreach ($this->xml->fields->field as $field) {
 
         $arr = $field->attributes();
+        $name = (string) $arr['name'];
+
+        $value = $this->data[$name];
         switch ($arr['type']) {
 
             case 'text':
@@ -13,7 +15,7 @@ echo $this->form;
     <div class="control-group">
         <label class="control-label" for="inputTable"><?php echo $field->label;?></label>
         <div class="controls">
-            <input type="text"  data-required="true" id="inputTable" placeholder="<?php echo $field->label;?>" name="<?php echo $arr['name'];?>">
+            <input type="text" value="<?php echo $value;?>" data-required="true" id="inputTable" placeholder="<?php echo $field->label;?>" name="<?php echo $arr['name'];?>">
 
         </div>
     </div>
@@ -24,7 +26,7 @@ echo $this->form;
     <div class="control-group">
         <label class="control-label" for="inputTable"><?php echo $field->label;?></label>
         <div class="controls">
-            <textarea rows="20" name="<?php echo $arr['name'];?>" data-required="true" class="input-xxlarge"></textarea>
+            <textarea rows="20" name="<?php echo $arr['name'];?>" data-required="true" class="input-xxlarge"><?php echo $value;?></textarea>
         </div>
     </div>
         <?
@@ -32,12 +34,12 @@ echo $this->form;
         }
 
     }
-*/
+
     ?>
     <div class="control-group">
         <div class="controls">
 
-            <button type="submit" class="btn">Opslaan</button>
+            <button type="submit" class="btn">Update</button>
         </div>
     </div>
 </form>
