@@ -79,7 +79,7 @@ class Element
      */
     public function getName()
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -97,7 +97,7 @@ class Element
      */
     public function getValue()
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**
